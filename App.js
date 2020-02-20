@@ -1,114 +1,81 @@
-/**
- * Sample React Native App
- * https://github.com/facebook/react-native
- *
- * @format
- * @flow
- */
+import * as React from 'react';
+import { Text, View } from 'react-native';
+import { NavigationContainer } from '@react-navigation/native';
+import { createMaterialBottomTabNavigator } from '@react-navigation/material-bottom-tabs';
+import FIcon from 'react-native-vector-icons/Feather';
+import EIcon from 'react-native-vector-icons/Entypo';
+import Home from './src/screens/Home';
+import Cart from './src/screens/Cart';
+import Account from './src/screens/Account';
+import AccountStack from './src/components/AccountStack';
 
-import React from 'react';
-import {
-  SafeAreaView,
-  StyleSheet,
-  ScrollView,
-  View,
-  Text,
-  StatusBar,
-} from 'react-native';
 
-import {
-  Header,
-  LearnMoreLinks,
-  Colors,
-  DebugInstructions,
-  ReloadInstructions,
-} from 'react-native/Libraries/NewAppScreen';
+const Tab = createMaterialBottomTabNavigator();
 
-const App: () => React$Node = () => {
+function MyTabs() {
   return (
-    <>
-      <StatusBar barStyle="dark-content" />
-      <SafeAreaView>
-        <ScrollView
-          contentInsetAdjustmentBehavior="automatic"
-          style={styles.scrollView}>
-          <Header />
-          {global.HermesInternal == null ? null : (
-            <View style={styles.engine}>
-              <Text style={styles.footer}>Engine: Hermes</Text>
-            </View>
-          )}
-          <View style={styles.body}>
-            <View style={styles.sectionContainer}>
-              <Text style={styles.sectionTitle}>Step One</Text>
-              <Text style={styles.sectionDescription}>
-                Edit <Text style={styles.highlight}>App.js</Text> to change this
-                screen and then come back to see your edits.
-              </Text>
-            </View>
-            <View style={styles.sectionContainer}>
-              <Text style={styles.sectionTitle}>See Your Changes</Text>
-              <Text style={styles.sectionDescription}>
-                <ReloadInstructions />
-              </Text>
-            </View>
-            <View style={styles.sectionContainer}>
-              <Text style={styles.sectionTitle}>Debug</Text>
-              <Text style={styles.sectionDescription}>
-                <DebugInstructions />
-              </Text>
-            </View>
-            <View style={styles.sectionContainer}>
-              <Text style={styles.sectionTitle}>Learn More</Text>
-              <Text style={styles.sectionDescription}>
-                Read the docs to discover what to do next:
-              </Text>
-            </View>
-            <LearnMoreLinks />
-          </View>
-        </ScrollView>
-      </SafeAreaView>
-    </>
+    <Tab.Navigator
+      initialRouteName="Home"
+      activeColor="#000000"
+      labelStyle={{ fontSize: 18 }}
+      barStyle={{ backgroundColor: '#ffa500' }}
+
+
+      tabBarOptions={{
+        labelStyle: { fontSize: 12 },
+        tabStyle: { width: 100 },
+        headerShown: true,
+        style: { backgroundColor: 'powderblue' },
+      }}
+    >
+      <Tab.Screen
+        name="Home"
+        component={Home}
+        options={{
+          tabBarLabel: 'Home',
+          title: 'JUst',
+          headerShown: true,
+
+          tabBarIcon: ({ color, size }) => (
+            <EIcon name="home" size={20} color='white' />),
+
+        }}
+      />
+      <Tab.Screen
+        name="Cart"
+        component={Cart}
+
+        options={{
+          titlr: 'Checker',
+          tabBarLabel: 'Cart',
+          headerShown: true,
+          headerTintColor: 'white',
+          headerStyle: { backgroundColor: 'tomato' },
+          tabBarIcon: ({ color, size }) => (
+            <EIcon name="shopping-cart" size={25} color='white' />),
+        }}
+      />
+      <Tab.Screen
+        name="Account"
+        component={AccountStack}
+        options={{
+          tabBarButton: props => <TouchableOpacity {...props} />,
+          tabBarLabel: 'Account',
+          headerShown: true,
+          tabBarVisible:true,
+          tabBarIcon: ({ color, size }) => (
+            <FIcon name="user" size={20} color='white' />),
+        }}
+      />
+    </Tab.Navigator>
   );
-};
+}
 
-const styles = StyleSheet.create({
-  scrollView: {
-    backgroundColor: Colors.lighter,
-  },
-  engine: {
-    position: 'absolute',
-    right: 0,
-  },
-  body: {
-    backgroundColor: Colors.white,
-  },
-  sectionContainer: {
-    marginTop: 32,
-    paddingHorizontal: 24,
-  },
-  sectionTitle: {
-    fontSize: 24,
-    fontWeight: '600',
-    color: Colors.black,
-  },
-  sectionDescription: {
-    marginTop: 8,
-    fontSize: 18,
-    fontWeight: '400',
-    color: Colors.dark,
-  },
-  highlight: {
-    fontWeight: '700',
-  },
-  footer: {
-    color: Colors.dark,
-    fontSize: 12,
-    fontWeight: '600',
-    padding: 4,
-    paddingRight: 12,
-    textAlign: 'right',
-  },
-});
-
-export default App;
+export default MyTabs;
+// export default function App() {
+//   return (
+//     <NavigationContainer>
+//       <MyTabs style={{ backgroundColor: 'green' }} />
+//     </NavigationContainer>
+//   );
+// }
